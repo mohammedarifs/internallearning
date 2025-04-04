@@ -23,11 +23,8 @@ jobs:
       - name: Export test_data_create_flag
         run: python .\getConfigdata.py
 
-      - name: Use test_data_create_flag
-        run: echo "::set-output name=status:: ${{ env.TEST_DATA_CREATE_FLAG }}"
-
       - name: Generate Test data
-        if: ${{ steps.deploy.outputs.status == 'True' }}
+        if: ${{ env.TEST_DATA_CREATE_FLAG == 'True' }}
         run: python .\TestDataGenerationViaMetadata.py
 
       - name: False Step
@@ -35,7 +32,7 @@ jobs:
         run: echo "test_case_generation was skipped, running additional tasks."
 
   test_execution:
-    needs: test_case_generation
+    needs: test_case_generation;
     runs-on: windows-latest
 
     steps:

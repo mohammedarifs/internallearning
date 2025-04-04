@@ -6,7 +6,7 @@ import os
 def export_variable():
     with open('./projectconfig.yaml', 'r') as file:
         config = yaml.safe_load(file)
-        test_data_create_flag = config.get('test_data_create_flag', False)
+        test_data_create_flag = config.get('test_data_create_flag')
 
         # Export as environment variable
 

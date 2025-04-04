@@ -29,7 +29,7 @@ jobs:
         run: python .\TestDataGenerationViaMetadata.py
 
       - name: False Step
-        if: ${{ steps.deploy.outputs.status == 'False' }}
+        if: ${{ steps.export-flag.outputs.test_data_create_flag == 'False' }}
         run: echo "test_case_generation was skipped, running additional tasks."
 
   test_execution:

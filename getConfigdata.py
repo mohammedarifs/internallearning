@@ -9,7 +9,8 @@ def export_variable():
         test_data_create_flag = config.get('test_data_create_flag', False)
 
         # Export as environment variable
-    print(f"::set-output name=test_data_create_flag::{test_data_create_flag}")
 
+        print(f"::set-output name=test_data_create_flag::{test_data_create_flag}")
+        print("--",test_data_create_flag)
 if __name__ == "__main__":
     export_variable()

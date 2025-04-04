@@ -21,6 +21,7 @@ jobs:
         run: python -m pip install -r requirements.txt
 
       - name: Export test_data_create_flag
+        id: export-flag
         run: python .\getConfigdata.py
 
       - name: Generate Test data

@@ -1,0 +1,25 @@
+{
+    "columns": [
+        {"name": "trade_id", "dtype": "str"},
+        {"name": "ticker", "dtype": "str"},
+        {"name": "trade_date", "dtype": "datetime64[ns]"},
+        {"name": "trade_type", "dtype": "str"},
+        {"name": "trade_volume", "dtype": "int"},
+        {"name": "trade_price", "dtype": "float"},
+        {"name": "total_value", "dtype": "float"},
+        {"name": "customer_id", "dtype": "str"},
+        {"name": "broker_id", "dtype": "str"},
+        {"name": "market", "dtype": "str"},
+        {"name": "order_type", "dtype": "str"},
+        {"name": "trade_status", "dtype": "str"},
+        {"name": "currency", "dtype": "str"},
+        {"name": "transaction_fee", "dtype": "float"},
+        {"name": "net_value", "dtype": "float"},
+        {"name": "trade_execution_time", "dtype": "str"},
+        {"name": "settlement_date", "dtype": "datetime64[ns]"},
+        {"name": "exchange_rate", "dtype": "float"},
+        {"name": "commission", "dtype": "float"},
+        {"name": "exchange_name", "dtype": "str"},
+        {"name": "account_status", "dtype": "str","sample_values": ["active","on-hold","locked"]}
+    ]
+}

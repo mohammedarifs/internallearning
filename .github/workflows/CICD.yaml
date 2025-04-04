@@ -24,11 +24,11 @@ jobs:
         run: python .\getConfigdata.py
 
       - name: Generate Test data
-        if: ${{ env.TEST_DATA_CREATE_FLAG == 'True' }}
+        if: ${{ steps.export-flag.outputs.test_data_create_flag == "True" }}
         run: python .\TestDataGenerationViaMetadata.py
 
       - name: False Step
-        if: ${{ steps.deploy.outputs.status != 'True' }}
+        if: ${{ steps.deploy.outputs.status == "False" }}
         run: echo "test_case_generation was skipped, running additional tasks."
 
   test_execution:

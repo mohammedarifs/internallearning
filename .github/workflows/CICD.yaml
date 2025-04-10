@@ -2,7 +2,11 @@ name: CI/CD
 
 on:
   workflow_dispatch:
-
+    inputs:
+      example_input:
+        description: 'Example input description'
+        required: true
+        default: 'default_value'
 
 jobs:
   test_case_generation:

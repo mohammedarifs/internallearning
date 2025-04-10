@@ -3,13 +3,22 @@ name: CI/CD
 on:
   workflow_dispatch:
     inputs:
-      example_input:
-        description: 'Example input description'
+      selected_group:
+        description: "Select the test group to run"
         required: true
-        default: 'default_value'
+        default: "all"
+        type: choice
+        options:
+          - physical
+          - virtual
+          - task1
+          - task2
+          - sql_to_azure
+          - nas_to_azure
+          - s3_to_azure
 
 jobs:
-  test_case_generation:
+  test_case_execution:
     runs-on: windows-latest
 
     steps:
@@ -24,31 +33,6 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
 
-      - name: Export test_data_create_flag
-        run: python .\getConfigdata.py
-
-      - name: Use test_data_create_flag
-        run: echo "true"
-
-
-  test_execution:
-    needs: test_case_generation
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run tests
-        run: echo "Test Execution was successful"
-
-  test_recon:
-    needs: test_execution
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run tests
-        run: echo "test recon was successful"
+      - name: Run pytest
+        run: |
+          pytest ${{ github.event.inputs.selected_group }}

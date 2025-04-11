@@ -1,6 +1,8 @@
 import pytest
 
-@pytest.mark.dataregistration
+pytestmark = [pytest.mark.P1 , pytest.mark.dataregistration]
+
+
 @pytest.mark.physical
 def test_Physical_dataregistration():
     print("login pass")

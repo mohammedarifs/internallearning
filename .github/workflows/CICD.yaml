@@ -19,9 +19,10 @@ on:
         default: 'None'
         type: choice
         options:
+          - None
           - All
-          - physical data registration
-          - virtual data registration
+          - physical
+          - virtual
           - task1
           - task2
           - sql_to_azure
@@ -59,12 +60,12 @@ jobs:
 
       - name: Run pytest
         run: |
-          if [ "${{ github.event.inputs.test_level }}" == "file" ]; then
-            print(${{ github.event.inputs.test_target }})
-          elif [ "${{ github.event.inputs.test_level }}" == "case" ]; then
-            print(${{ github.event.inputs.test_target }})
-          elif [ "${{ github.event.inputs.test_level }}" == "group" ]; then
-            print(${{ github.event.inputs.test_target }})
+          if [ "${{ github.event.inputs.test_level }}" != "Priorities" ]; then
+            pytest .\${{ github.event.inputs.test_level }} -m ${{ github.event.inputs.test_target }}
+          elif [ "${{ github.event.inputs.test_level }}" == "Priorities" ]; then
+            pytest -m ${{ github.event.inputs.test_target }}
+#          elif [ "${{ github.event.inputs.test_level }}" == "group" ]; then
+#            print(${{ github.event.inputs.test_target }})
           fi
 #          run: |
 #            if [ "${{ github.event.inputs.filter_level_1 }}" == "file" ]; then

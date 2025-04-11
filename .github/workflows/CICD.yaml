@@ -61,9 +61,9 @@ jobs:
       - name: Run pytest
         run: |
           if [ "${{ github.event.inputs.test_level }}" != "Priorities" ]; then
-            pytest -k ${{ github.event.inputs.test_level }} -m ${{ github.event.inputs.test_target }}
+            pytest -k "${{ github.event.inputs.test_level }}" -m "${{ github.event.inputs.test_target }}"
           elif [ "${{ github.event.inputs.test_level }}" == "Priorities" ]; then
-            pytest -m ${{ github.event.inputs.test_target }}
+            pytest -m "${{ github.event.inputs.test_target }}"
           fi
 
 #      - name: Run pytest

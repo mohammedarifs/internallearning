@@ -74,7 +74,7 @@ jobs:
 #              pytest -m ${{ github.event.inputs.test_target }}
 #          elif [ "${{ github.event.inputs.test_level }}" == "group" ]; then
 #            print(${{ github.event.inputs.test_target }})
-            fi
+#            fi
 #          run: |
 #            if [ "${{ github.event.inputs.filter_level_1 }}" == "file" ]; then
 #              if [ -n "${{ github.event.inputs.filter_target_2 }}" ]; then

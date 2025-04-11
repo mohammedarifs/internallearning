@@ -1,11 +1,10 @@
+import pytest
 
-
-
-
-@pytest.mark.pysical
+@pytest.mark.dataregistration
+@pytest.mark.physical
 def test_Physical_dataregistration():
     print("login pass")
 
-@pytest.mark.virtaul
+@pytest.mark.virtual
 def test_virtaul_dataregistration():
     print("login pass")

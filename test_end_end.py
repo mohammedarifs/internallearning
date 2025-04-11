@@ -1,6 +1,4 @@
-
-
-
+import pytest
 
 
 @pytest.mark.sql_to_azure

@@ -7,6 +7,11 @@ on:
         description: 'Level of tests to run (file, case, group)'
         required: true
         default: 'group'
+        type: choice
+        options:
+          - dataregistration
+          - tasks
+          - end_to_end_flows
 #        selected_group:
 #          description: "Select the test group to run"
 #          required: true
@@ -23,7 +28,8 @@ on:
       test_target:
         description: 'Specify the file, test case, or group to run'
         required: true
-        default: 'tests/test_example.py'
+        default: 'All'
+        type: choice
         options:
           - physical
           - virtual

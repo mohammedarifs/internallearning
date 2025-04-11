@@ -4,41 +4,43 @@ on:
   workflow_dispatch:
     inputs:
       test_level:
-        description: 'Level of tests to run (file, case, group)'
+        description: 'Workflows'
         required: true
-        default: 'group'
+        default: 'dataregistration'
         type: choice
         options:
           - dataregistration
           - tasks
           - end_to_end_flows
-#        selected_group:
-#          description: "Select the test group to run"
-#          required: true
-#          default: "all"
-#          type: choice
-#          options:
-#            - physical
-#            - virtual
-#            - task1
-#            - task2
-#            - sql_to_azure
-#            - nas_to_azure
-#            - s3_to_azure
-        test_target:
-          description: 'Specify the file, test case, or group to run'
-          required: true
-          default: 'All'
-          type: choice
-          options:
-            - physical
-            - virtual
-            - task1
-            - task2
-            - sql_to_azure
-            - nas_to_azure
-            - s3_to_azure
-
+          - Priorities
+      test_target:
+        description: 'Components'
+        required: true
+        default: 'None'
+        type: choice
+        options:
+          - All
+          - physical data registration
+          - virtual data registration
+          - task1
+          - task2
+          - sql_to_azure
+          - nas_to_azure
+          - s3_to_azure
+          - P1
+          - P2
+          - P3
+      test_parameters:
+        description: 'source'
+        required: true
+        default: 'csv'
+        type: choice
+        options:
+          - All
+          - csv
+          - xml
+          - json
+          - parquet
 jobs:
   test_case_execution:
     runs-on: windows-latest

@@ -25,19 +25,19 @@ on:
 #            - sql_to_azure
 #            - nas_to_azure
 #            - s3_to_azure
-      test_target:
-        description: 'Specify the file, test case, or group to run'
-        required: true
-        default: 'All'
-        type: choice
-        options:
-          - physical
-          - virtual
-          - task1
-          - task2
-          - sql_to_azure
-          - nas_to_azure
-          - s3_to_azure
+        test_target:
+          description: 'Specify the file, test case, or group to run'
+          required: true
+          default: 'All'
+          type: choice
+          options:
+            - physical
+            - virtual
+            - task1
+            - task2
+            - sql_to_azure
+            - nas_to_azure
+            - s3_to_azure
 
 jobs:
   test_case_execution:

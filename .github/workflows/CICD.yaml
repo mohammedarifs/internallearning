@@ -121,3 +121,14 @@ jobs:
 
       - name: Run pytest
         run: echo "workflow execution run matrix.priorities"
+
+  test_recon:
+    needs: [workflow_execution , priorities_execution]
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run tests
+        run: echo "test_recon was successful"

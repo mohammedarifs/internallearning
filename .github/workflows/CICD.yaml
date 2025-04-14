@@ -68,7 +68,7 @@ jobs:
 
   workflow_execution:
     needs: test_case_generation
-    if: ${{ github.event.inputs.test_level != 'Priorities'
+    if: ${{ github.event.inputs.test_level != 'Priorities'}}
     runs-on: windows-latest
 #    Strategy:
 #          matrix:
@@ -92,7 +92,7 @@ jobs:
 
   priorities_execution:
     needs: test_case_generation
-    if: ${{ github.event.inputs.test_level == 'Priorities'
+    if: ${{ github.event.inputs.test_level == 'Priorities'}}
     runs-on: windows-latest
 
     steps:

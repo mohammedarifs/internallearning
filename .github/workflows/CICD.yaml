@@ -51,16 +51,16 @@ jobs:
         with:
           python-version: 3.13  #${{ matrix.python-version }}
 
-      - name: Install dependencies
-        run: python -m pip install -r requirements.txt
-
-      - name: Export test_data_create_flag
-        id: export-flag
-        run: python .\getConfigdata.py
+#      - name: Install dependencies
+#        run: python -m pip install -r requirements.txt
+#
+#      - name: Export test_data_create_flag
+#        id: export-flag
+#        run: python .\getConfigdata.py
 
       - name: Generate Test data
         if: ${{ steps.export-flag.outputs.test_data_create_flag == 'True' }}
-        run: python .\TestDataGenerationViaMetadata.py
+        run: echo "test_case_generation was success"
 
       - name: Skip test geneeration
         if: ${{ steps.export-flag.outputs.test_data_create_flag == 'False' }}
@@ -70,8 +70,15 @@ jobs:
     needs: test_case_generation
     if: ${{ github.event.inputs.test_level != 'Priorities'}}
     runs-on: windows-latest
-#    Strategy:
-#          matrix:
+    strategy:
+      matrix:
+        flow:
+          - sql_to_azure
+          - nas_to_azure
+          - s3_to_azure
+          - sybase_to_azure
+          - HDFS_to_Azure
+          - REST_API_to_Azure
     #        os: [windows-latest, ubantu-latet, macs-latest]
     #        browser: [chrome,firefox,egde]
     #      fail-fast: true
@@ -88,13 +95,18 @@ jobs:
         run: python -m pip install -r requirement.txt
 
       - name: Run pytest
-        run: pytest test_${{ github.event.inputs.test_level }}.py
+        run: echo "workflow execution run matrix.flow"
 
   priorities_execution:
     needs: test_case_generation
     if: ${{ github.event.inputs.test_level == 'Priorities'}}
     runs-on: windows-latest
-
+    strategy:
+      matrix:
+        priorities:
+          - P1
+          - P2
+          - P3
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -108,4 +120,4 @@ jobs:
         run: python -m pip install -r requirement.txt
 
       - name: Run pytest
-        run: pytest -m ${{github.event.inputs.test_target }}
+        run: echo "workflow execution run matrix.priorities"

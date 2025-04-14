@@ -35,7 +35,64 @@ on:
           - json
           - parquet
 jobs:
-  test_case_execution:
+  test_case_generation:
+    #    Strategy:
+    #      matrix:
+    #        os: [windows-latest, ubantu-latet, macs-latest]
+    #        browser: [chrome,firefox,egde]
+    #      fail-fast: true
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/checkout@v4
+        with:
+          python-version: 3.13  #${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Export test_data_create_flag
+        id: export-flag
+        run: python .\getConfigdata.py
+
+      - name: Generate Test data
+        if: ${{ steps.export-flag.outputs.test_data_create_flag == 'True' }}
+        run: python .\TestDataGenerationViaMetadata.py
+
+      - name: Skip test geneeration
+        if: ${{ steps.export-flag.outputs.test_data_create_flag == 'False' }}
+        run: echo "test_case_generation was skipped, running additional tasks."
+
+  workflow_execution:
+    needs: test_case_generation
+    if: ${{ github.event.inputs.test_level != 'Priorities'
+    runs-on: windows-latest
+#    Strategy:
+#          matrix:
+    #        os: [windows-latest, ubantu-latet, macs-latest]
+    #        browser: [chrome,firefox,egde]
+    #      fail-fast: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/checkout@v4
+        with:
+          python-version: 3.13  #${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: python -m pip install -r requirement.txt
+
+      - name: Run pytest
+        run: pytest test_${{ github.event.inputs.test_level }}.py
+
+  priorities_execution:
+    needs: test_case_generation
+    if: ${{ github.event.inputs.test_level == 'Priorities'
     runs-on: windows-latest
 
     steps:
@@ -51,10 +108,4 @@ jobs:
         run: python -m pip install -r requirement.txt
 
       - name: Run pytest
-        run: |
-            if ( "${{ github.event.inputs.test_level }}" != "Priorities" ){
-              pytest .\${{ github.event.inputs.test_level }} -m ${{ github.event.inputs.test_target }}
-          }
-            else{
-              pytest -m ${{ github.event.inputs.test_target }}
-          }
+        run: pytest -m ${{github.event.inputs.test_target }}

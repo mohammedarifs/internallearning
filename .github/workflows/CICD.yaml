@@ -19,15 +19,7 @@ on:
         default: 'None'
         type: choice
         options:
-          - None
           - All
-          - physical
-          - virtual
-          - task1
-          - task2
-          - sql_to_azure
-          - nas_to_azure
-          - s3_to_azure
           - P1
           - P2
           - P3
@@ -58,14 +50,16 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirement.txt
 
-      - name: Run pytest
-        run: pytest -m ${{ github.event.inputs.test_target }}
 #      - name: Run pytest
-#        run: |
-#            if [ "${{ github.event.inputs.test_level }}" != "Priorities" ]; then
-#              pytest .\${{ github.event.inputs.test_level }} -m ${{ github.event.inputs.test_target }}
-#            elif [ "${{ github.event.inputs.test_level }}" == "Priorities" ]; then
-#              pytest -m ${{ github.event.inputs.test_target }}
+#        run: pytest -m ${{ github.event.inputs.test_target }}
+      - name: Run pytest
+        run: |
+            if ( "${{ github.event.inputs.test_level }}" != "Priorities" ){
+              pytest .\${{ github.event.inputs.test_level }} -m ${{ github.event.inputs.test_target }}
+          }
+            else{
+              pytest -m ${{ github.event.inputs.test_target }}
+          }
 #          elif [ "${{ github.event.inputs.test_level }}" == "group" ]; then
 #            print(${{ github.event.inputs.test_target }})
 #            fi
